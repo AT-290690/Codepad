@@ -57,8 +57,8 @@ document.addEventListener('keydown', (e) => {
     e.stopPropagation()
     popupContainer.style.display = 'none'
     consoleElement.value = ''
-    const value = js_beautify(editor.getValue(), State.settings.beautify)
-    editor.setValue(value)
+    // const value = js_beautify(editor.getValue(), State.settings.beautify)
+    // editor.setValue(value)
     editor.getSelection() ? execute({ value: '_LOG' }) : run()
   } else if (e.key === 'Enter') {
     if (activeElement === consoleElement) {
