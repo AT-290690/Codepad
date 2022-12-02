@@ -1,11 +1,9 @@
 import {
   consoleEditor,
-  // alertIcon,
   consoleElement,
   errorIcon,
   formatterIcon,
   keyIcon,
-  // questionIcon,
   xIcon,
 } from '../main.js'
 import { editor } from '../main.js'
@@ -86,7 +84,7 @@ export const execute = async (CONSOLE) => {
             : selection
         const label = JSON.stringify(selection)
         const out = `${selection === '' ? ';' : ''}__debug_log(${
-          formattedSelection || '"Nothing is selected"'
+          formattedSelection || run()
         }, ${label})`
         editor.replaceSelection(out)
         exe(`const __debug_log = _logger(); ${editor.getValue().trim()}`)
