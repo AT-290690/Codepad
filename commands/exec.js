@@ -214,10 +214,9 @@ SAVE name
       break
     case 'INPUT':
       {
-        const file = PARAMS[0] ? 'input-' + PARAMS[0] : 'input-main'
         consoleElement.value = ''
-        localStorage.setItem(file, editor.getValue())
-        editor.setValue('')
+        State.input = editor.getValue()
+        editor.setValue(State.source)
         droneIntel(keyIcon)
       }
       break

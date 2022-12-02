@@ -37,6 +37,7 @@ export const State = {
   sounds: [],
   activeWindow: null,
   isErrored: true,
+  input: '',
   mute: localStorage.getItem('mute') ? +localStorage.getItem('mute') : 1,
   settings: {
     lint: false,
@@ -89,7 +90,7 @@ export const playSound = (index) => {
 const AsyncFunction = async function () {}.constructor
 export const exe = async (source, params) => {
   try {
-    const result = await new AsyncFunction(`${source}`)()
+    const result = await new AsyncFunction(`${State.input};${source}`)()
     droneButton.classList.remove('shake')
     droneIntel(formatterIcon)
     playSound(6)
@@ -104,10 +105,9 @@ export const exe = async (source, params) => {
     playSound(0)
   }
 }
-globalThis._require = (module) =>
-  new Function(`return ${localStorage.getItem(`stash-${module}`)}`)()
+
 globalThis._logger = (disable = 0) => {
-  if (disable) return (msg, count) => {}
+  if (disable) return () => {}
   popupContainer.style.display = 'block'
   const popup = consoleEditor
   popup.setValue('')
