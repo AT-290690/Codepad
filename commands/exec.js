@@ -212,14 +212,15 @@ SAVE name
       playSound(4)
       droneIntel(formatterIcon)
       break
-    case 'INPUT': {
-      const file = PARAMS[0] ? 'input-' + PARAMS[0] : 'input-main'
-      consoleElement.value = ''
-      localStorage.setItem(file, editor.getValue())
-      editor.setValue('')
-      // droneIntel(formatterIcon)
-    }
-
+    case 'INPUT':
+      {
+        const file = PARAMS[0] ? 'input-' + PARAMS[0] : 'input-main'
+        consoleElement.value = ''
+        localStorage.setItem(file, editor.getValue())
+        editor.setValue('')
+        droneIntel(keyIcon)
+      }
+      break
     case 'BACK':
       editor.setValue(State.source)
       playSound(5)
