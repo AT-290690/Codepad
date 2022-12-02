@@ -37,7 +37,7 @@ debugButt.addEventListener(
 )
 droneButton.addEventListener('click', () => run())
 appButton.addEventListener('click', () => {
-  execute({ value: 'LINK ' + consoleElement.value })
+  execute({ value: 'INPUT ' + consoleElement.value })
   playSound(1)
 })
 formatterButton.addEventListener('click', () => {
@@ -57,11 +57,8 @@ document.addEventListener('keydown', (e) => {
     e.stopPropagation()
     popupContainer.style.display = 'none'
     consoleElement.value = ''
-    const value = editor.getValue()
-    localStorage.setItem(
-      State.lastSelectedFile,
-      editor.setValue(js_beautify(value, State.settings.beautify))
-    )
+    const value = js_beautify(editor.getValue(), State.settings.beautify)
+    editor.setValue(value)
     editor.getSelection() ? execute({ value: '_LOG' }) : run()
   } else if (e.key === 'Enter') {
     if (activeElement === consoleElement) {

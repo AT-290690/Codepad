@@ -166,7 +166,6 @@ SAVE name
       }
       break
     case 'SAVE':
-    case '!':
       {
         consoleElement.value = ''
         const file = PARAMS[0] ? 'stash-' + PARAMS[0] : State.lastSelectedFile
@@ -213,11 +212,14 @@ SAVE name
       playSound(4)
       droneIntel(formatterIcon)
       break
-    case 'LINK':
-      // const gist = PARAMS[0].split(GIST)[1]
-      execute({ value: `LOAD main` })
+    case 'INPUT': {
+      const file = PARAMS[0] ? 'input-' + PARAMS[0] : 'input-main'
+      consoleElement.value = ''
+      localStorage.setItem(file, editor.getValue())
+      editor.setValue('')
       // droneIntel(formatterIcon)
-      break
+    }
+
     case 'BACK':
       editor.setValue(State.source)
       playSound(5)
