@@ -7,7 +7,15 @@ import {
   xIcon,
 } from '../main.js'
 import { editor } from '../main.js'
-import { run, printErrors, playSound, State, droneIntel, exe } from './utils.js'
+import {
+  run,
+  printErrors,
+  playSound,
+  State,
+  droneIntel,
+  exe,
+  replacer,
+} from './utils.js'
 
 export const execute = async (CONSOLE) => {
   consoleElement.classList.remove('error_line')
@@ -82,7 +90,7 @@ export const execute = async (CONSOLE) => {
           selection[selection.length - 1] === ';'
             ? selection.substring(selection, selection.length - 1)
             : selection
-        const label = JSON.stringify(selection)
+        const label = JSON.stringify(selection, replacer)
         const out = `${selection === '' ? ';' : ''}__debug_log(${
           formattedSelection || run()
         }, ${label})`

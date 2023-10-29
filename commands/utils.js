@@ -9,9 +9,21 @@ import {
   consoleEditor,
   canvasContainer,
 } from '../main.js'
+export const replacer = (_, value) => {
+  if (value instanceof Map)
+    return {
+      ['{Map}']: Array.from(value.entries()),
+    }
+  else if (value instanceof Set)
+    return {
+      '{Set}': Array.from(value.values()),
+    }
+  else return value
+}
 export const print = function (...values) {
   values.forEach(
-    (x) => (consoleElement.value += `${JSON.stringify(x) ?? undefined}`)
+    (x) =>
+      (consoleElement.value += `${JSON.stringify(x, replacer) ?? undefined}`)
   )
   return values
 }
@@ -120,7 +132,7 @@ globalThis._logger = (disable = 0) => {
     const current = popup.getValue()
     popup.setValue(
       `${current ? current + '\n' : ''}// ${comment}
-${msg !== undefined ? JSON.stringify(msg, null, space) : undefined}`
+${msg !== undefined ? JSON.stringify(msg, replacer, space) : undefined}`
     )
     popup.setCursor(
       popup.posToOffset({ ch: 0, line: popup.lineCount() - 1 }),
