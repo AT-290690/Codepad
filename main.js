@@ -16,7 +16,7 @@ export const xIcon = document.getElementById('x-drone-icon')
 export const formatterButton = document.getElementById('formatter')
 export const popupContainer = document.getElementById('popup-container')
 export const canvasContainer = document.getElementById('canvas-container')
-
+export const alertIcon = document.getElementById('thunder-drone-icon')
 export const compositionContainer = document.getElementById(
   'composition-container'
 )

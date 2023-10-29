@@ -1,9 +1,8 @@
 import {
   droneButton,
   editor,
-  formatterIcon,
   consoleElement,
-  // alertIcon,
+  alertIcon,
   errorIcon,
   popupContainer,
   consoleEditor,
@@ -104,7 +103,7 @@ export const exe = async (source, params) => {
   try {
     const result = await new AsyncFunction(`${State.input};${source}`)()
     droneButton.classList.remove('shake')
-    droneIntel(formatterIcon)
+    droneIntel(alertIcon)
     playSound(6)
     return result
   } catch (err) {
