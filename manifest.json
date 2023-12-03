@@ -1,7 +1,7 @@
 {
   "name": "CP-JS",
   "short_name": "CP-JS",
-  "start_url": "../index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#565f89",
   "theme_color": "#565f89",

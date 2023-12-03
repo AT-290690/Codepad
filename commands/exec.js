@@ -213,11 +213,6 @@ SAVE name
           break
       }
       break
-    case 'PRETTY':
-      editor.setValue(js_beautify(editor.getValue(), State.settings.beautify))
-      playSound(4)
-      droneIntel(formatterIcon)
-      break
     case 'INPUT':
       {
         consoleElement.value = ''

@@ -48,29 +48,9 @@ export const State = {
   sounds: [],
   activeWindow: null,
   isErrored: true,
-  input: '',
   mute: localStorage.getItem('mute') ? +localStorage.getItem('mute') : 1,
   settings: {
     lint: false,
-    beautify: {
-      indent_size: '2',
-      indent_char: ' ',
-      max_preserve_newlines: '-1',
-      preserve_newlines: false,
-      keep_array_indentation: true,
-      break_chained_methods: true,
-      indent_scripts: 'keep',
-      brace_style: 'none,preserve-inline',
-      space_before_conditional: true,
-      unescape_strings: false,
-      jslint_happy: true,
-      end_with_newline: false,
-      wrap_line_length: '80',
-      indent_inner_html: false,
-      comma_first: false,
-      e4x: true,
-      indent_empty_lines: false,
-    },
   },
 }
 
@@ -101,7 +81,7 @@ export const playSound = (index) => {
 const AsyncFunction = async function () {}.constructor
 export const exe = async (source, params) => {
   try {
-    const result = await new AsyncFunction(`${State.input};${source}`)()
+    const result = await new AsyncFunction(source)()
     droneButton.classList.remove('shake')
     droneIntel(alertIcon)
     playSound(6)

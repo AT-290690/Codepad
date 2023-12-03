@@ -73,9 +73,9 @@ body {
 #console {
   background-color: transparent;
   outline: none;
-  border: none;
   resize: none;
   width: 50%;
+  border: none;
   /* position: fixed; */
   /* bottom: 0; */
 }
@@ -100,7 +100,9 @@ body {
 }
 #editor-container {
   z-index: 1;
-  border: solid 1px var(--border);
+  border-top: solid 1px var(--border);
+
+  /* border: solid 1px var(--border); */
 }
 @keyframes fadeOutOpacity {
   0% {
@@ -302,7 +304,8 @@ input:focus {
   color: white;
   background-color: transparent;
   display: none;
-  border: solid 1px var(--border);
+  /* border: solid 1px var(--border); */
+  border-top: solid 1px var(--border);
 }
 #canvas-container {
   position: absolute;
@@ -312,5 +315,5 @@ input:focus {
   z-index: 1000;
   background-color: transparent;
   display: none;
-  border: solid 1px var(--border);
+  /* border: solid 1px var(--border); */
 }
