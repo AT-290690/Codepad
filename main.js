@@ -1,6 +1,6 @@
 import { CodeMirror } from './libs/editor/editor.bundle.js'
 import { execute } from './commands/exec.js'
-import { playSound, run, State } from './commands/utils.js'
+import { run } from './commands/utils.js'
 export const consoleElement = document.getElementById('console')
 export const editorContainer = document.getElementById('editor-container')
 export const mainContainer = document.getElementById('main-container')
@@ -30,12 +30,14 @@ appButton.addEventListener('click', () => execute({ value: 'RUN ' }))
 // formatterButton.addEventListener('click', () => {
 //   execute({ value: 'PRETTY' })
 // })
-keyButton.addEventListener('click', () => execute({ value: 'LIST' }))
+keyButton.addEventListener('click', () => execute({ value: 'ENCODE' }))
 export const editor = CodeMirror(editorContainer, {})
-editorContainer.addEventListener(
-  'click',
-  () => (State.activeWindow = editorContainer)
-)
+const initial = new URLSearchParams(location.search).get('s') ?? ''
+if (initial) {
+  const decompressed = atob(initial)
+  editor.setValue(decodeURIComponent(decompressed))
+}
+
 document.addEventListener('keydown', (e) => {
   const activeElement = document.activeElement
   if (e.key && e.key.toLowerCase() === 's' && (e.ctrlKey || e.metaKey)) {
@@ -58,7 +60,6 @@ document.addEventListener('keydown', (e) => {
     canvasContainer.style.display = 'none'
   }
 })
-State.activeWindow = editorContainer
 editor.focus()
 window.addEventListener('resize', () => {
   const bouds = document.body.getBoundingClientRect()

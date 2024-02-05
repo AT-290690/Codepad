@@ -1,6 +1,6 @@
 {
-  "name": "CP-JS",
-  "short_name": "CP-JS",
+  "name": "CodePad",
+  "short_name": "CP",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#565f89",

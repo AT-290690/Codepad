@@ -40,51 +40,17 @@ export const printErrors = (errors) => {
   consoleElement.value = errors
 }
 
-export const correctFilePath = (filename) => {
-  if (!filename) return ''
-  return '/' + filename.split('/').filter(Boolean).join('/')
-}
-export const State = {
-  sounds: [],
-  activeWindow: null,
-  isErrored: true,
-  mute: localStorage.getItem('mute') ? +localStorage.getItem('mute') : 1,
-  settings: {
-    lint: false,
-  },
-}
-
 export const droneIntel = (icon) => {
   icon.style.visibility = 'visible'
   setTimeout(() => (icon.style.visibility = 'hidden'), 500)
 }
 
-export const playSound = (index) => {
-  if (!State.mute) {
-    if (!State.sounds.length) {
-      for (let i = 0; i < 7; i++) {
-        const sound = new Audio(`./assets/sounds/sound${i}.wav`)
-        sound.volume = sound.volume * 0.1
-        State.sounds.push(sound)
-      }
-    }
-    State.sounds.forEach((sound, i) => {
-      if (i === index) sound.currentTime = 0
-      else {
-        sound.pause()
-        sound.currentTime = 0
-      }
-    })
-    State.sounds[index].play()
-  }
-}
 const AsyncFunction = async function () {}.constructor
 export const exe = async (source, params) => {
   try {
     const result = await new AsyncFunction(source)()
     droneButton.classList.remove('shake')
     droneIntel(alertIcon)
-    playSound(6)
     return result
   } catch (err) {
     consoleElement.classList.remove('info_line')
@@ -93,11 +59,10 @@ export const exe = async (source, params) => {
     droneButton.classList.remove('shake')
     droneButton.classList.add('shake')
     droneIntel(errorIcon)
-    playSound(0)
   }
 }
 
-globalThis._logger = (disable = 0) => {
+globalThis.logger = (disable = 0) => {
   if (disable) return () => {}
   popupContainer.style.display = 'block'
   const popup = consoleEditor
@@ -110,7 +75,7 @@ globalThis._logger = (disable = 0) => {
   return (msg, comment = '', space) => {
     const current = popup.getValue()
     popup.setValue(
-      `${current ? current + '\n' : ''}// ${comment}
+      `${current ? current + '\n' : ''}// ${comment.replace(/[\n\s\t\r]/g, '')}
 ${msg !== undefined ? JSON.stringify(msg, replacer, space) : undefined}`
     )
     popup.setCursor(
@@ -120,46 +85,13 @@ ${msg !== undefined ? JSON.stringify(msg, replacer, space) : undefined}`
     return msg
   }
 }
-globalThis._print = (disable = 0) => {
-  if (disable) return () => {}
-  popupContainer.style.display = 'block'
-  const popup = consoleEditor
-  popup.setValue('')
-  const bouds = document.body.getBoundingClientRect()
-  const width = bouds.width
-  const height = bouds.height
-  popup.setSize(width - 2, height / 3)
-  return (msg) => {
-    const current = popup.getValue()
-    popup.setValue(
-      `${current ? current + '\n' : ''}${msg
-        .toString()
-        .replace('"', '')
-        .replace("'", '')
-        .trim()}`
-    )
-    popup.setCursor(
-      popup.posToOffset({ ch: 0, line: popup.lineCount() - 1 }),
-      true
-    )
-    return msg
-  }
-}
-globalThis._canvas = (w, h) => {
-  const canvas = createCanvas()
-  if (!(w ?? h)) {
-    const bounds = document.body.getBoundingClientRect()
-    canvas.width = (w ?? bounds.width) / 2
-    canvas.height = (h ?? bounds.height) - 65
-  }
-  return canvas
-}
+
 export const run = async () => {
   consoleElement.classList.add('info_line')
   consoleElement.classList.remove('error_line')
   consoleElement.value = ''
   popupContainer.style.display = 'none'
-  const source = (State.source = editor.getValue())
-  await exe(source.trim())
+  const source = editor.getValue().trim()
+  await exe(source)
   return source
 }
