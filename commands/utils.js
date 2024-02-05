@@ -6,7 +6,6 @@ import {
   errorIcon,
   popupContainer,
   consoleEditor,
-  canvasContainer,
 } from '../main.js'
 export const replacer = (_, value) => {
   if (value instanceof Map)
@@ -27,13 +26,6 @@ export const print = function (...values) {
   return values
 }
 
-export const createCanvas = () => {
-  canvasContainer.innerHTML = ''
-  canvasContainer.style.display = 'block'
-  const canvas = document.createElement('canvas')
-  canvasContainer.appendChild(canvas)
-  return canvas
-}
 export const printErrors = (errors) => {
   consoleElement.classList.remove('info_line')
   consoleElement.classList.add('error_line')

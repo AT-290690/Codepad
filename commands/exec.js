@@ -2,9 +2,7 @@ import {
   consoleEditor,
   consoleElement,
   errorIcon,
-  formatterIcon,
   keyIcon,
-  popupContainer,
   xIcon,
 } from '../main.js'
 import { editor } from '../main.js'
@@ -14,21 +12,39 @@ export const execute = async (CONSOLE) => {
   consoleElement.classList.remove('error_line')
   consoleElement.classList.add('info_line')
   const selectedConsoleLine = CONSOLE.value.trim()
-  const [CMD] = selectedConsoleLine.split(' ')
+  const [CMD, ...ARGS] = selectedConsoleLine.split(' ')
   switch (CMD?.trim()?.toUpperCase()) {
-    case 'ENCODE':
+    case 'SHARE':
       {
         const compressed = btoa(editor.getValue())
+        const uri = encodeURIComponent(compressed)
         const newurl =
           window.location.protocol +
           '//' +
           window.location.host +
           window.location.pathname +
-          `?s=${encodeURIComponent(compressed)}`
+          `?s=${uri}`
         consoleElement.value = newurl
-        // popupContainer.style.display = 'block'
         window.history.pushState({ path: newurl }, '', newurl)
       }
+      break
+    case 'ENCODE':
+      {
+        const compressed = btoa(editor.getValue())
+        const uri = encodeURIComponent(compressed)
+        const newurl =
+          window.location.protocol +
+          '//' +
+          window.location.host +
+          window.location.pathname +
+          `?s=${uri}`
+        consoleElement.value = uri
+        window.history.pushState({ path: newurl }, '', newurl)
+      }
+      break
+    case 'DECODE':
+      editor.setValue(atob(decodeURIComponent(ARGS[0])))
+      consoleElement.value = ''
       break
     case 'CLEAR':
       editor.setValue('')
@@ -120,7 +136,9 @@ export const execute = async (CONSOLE) => {
  ---------[COMMANDS]---------
  HELP: list these commands
  RUN: run code 
- ENCODE: turn code into Base64 link
+ SHARE: create share link
+ ENCODE: turn code into Base64
+ DECODE: decode the current Base64
  CLEAR: clears the editor content
  X: clears search and logs
  ABOUT: read feature list

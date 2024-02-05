@@ -15,7 +15,6 @@ export const keyIcon = document.getElementById('key-drone-icon')
 export const xIcon = document.getElementById('x-drone-icon')
 // export const formatterButton = document.getElementById('formatter')
 export const popupContainer = document.getElementById('popup-container')
-export const canvasContainer = document.getElementById('canvas-container')
 export const alertIcon = document.getElementById('thunder-drone-icon')
 export const compositionContainer = document.getElementById(
   'composition-container'
@@ -30,7 +29,7 @@ appButton.addEventListener('click', () => execute({ value: 'RUN ' }))
 // formatterButton.addEventListener('click', () => {
 //   execute({ value: 'PRETTY' })
 // })
-keyButton.addEventListener('click', () => execute({ value: 'ENCODE' }))
+keyButton.addEventListener('click', () => execute({ value: 'SHARE' }))
 export const editor = CodeMirror(editorContainer, {})
 const initial = new URLSearchParams(location.search).get('s') ?? ''
 if (initial) {
@@ -57,7 +56,6 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault()
     e.stopPropagation()
     popupContainer.style.display = 'none'
-    canvasContainer.style.display = 'none'
   }
 })
 editor.focus()
@@ -69,9 +67,6 @@ window.addEventListener('resize', () => {
   // editor.setSize(width, height - 70)
   if (popupContainer.style.display === 'block') {
     consoleEditor.setSize(width - 2, height / 3)
-  }
-  if (canvasContainer.style.display === 'block') {
-    canvasContainer.style.display = 'none'
   }
 })
 const bounds = document.body.getBoundingClientRect()
