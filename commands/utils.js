@@ -1,5 +1,4 @@
 import {
-  droneButton,
   editor,
   consoleElement,
   alertIcon,
@@ -41,15 +40,12 @@ const AsyncFunction = async function () {}.constructor
 export const exe = async (source, params) => {
   try {
     const result = await new AsyncFunction(source)()
-    droneButton.classList.remove('shake')
     droneIntel(alertIcon)
     return result
   } catch (err) {
     consoleElement.classList.remove('info_line')
     consoleElement.classList.add('error_line')
     consoleElement.value = consoleElement.value.trim() || err + ' '
-    droneButton.classList.remove('shake')
-    droneButton.classList.add('shake')
     droneIntel(errorIcon)
   }
 }

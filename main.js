@@ -8,7 +8,7 @@ export const headerContainer = document.getElementById('header')
 export const focusButton = document.getElementById('focus-button')
 export const keyButton = document.getElementById('key')
 export const appButton = document.getElementById('run')
-export const droneButton = document.getElementById('drone')
+// export const droneButton = document.getElementById('drone')
 export const errorIcon = document.getElementById('error-drone-icon')
 export const formatterIcon = document.getElementById('formatter-drone-icon')
 export const keyIcon = document.getElementById('key-drone-icon')
@@ -24,16 +24,17 @@ export const consoleResizerElement = document.getElementById('console-resizer')
 
 export const consoleEditor = CodeMirror(popupContainer)
 
-droneButton.addEventListener('click', () => execute({ value: '_LOG' }))
+// droneButton.addEventListener('click', () => execute({ value: '_LOG' }))
 appButton.addEventListener('click', () => execute({ value: 'RUN ' }))
 // formatterButton.addEventListener('click', () => {
 //   execute({ value: 'PRETTY' })
 // })
 keyButton.addEventListener('click', () => execute({ value: 'SHARE' }))
 export const editor = CodeMirror(editorContainer, {})
+
 const initial = new URLSearchParams(location.search).get('s') ?? ''
 if (initial) {
-  const decompressed = atob(initial)
+  const decompressed = LZString.decompressFromBase64(initial)
   editor.setValue(decodeURIComponent(decompressed))
 }
 

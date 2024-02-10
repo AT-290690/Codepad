@@ -16,7 +16,7 @@ export const execute = async (CONSOLE) => {
   switch (CMD?.trim()?.toUpperCase()) {
     case 'SHARE':
       {
-        const compressed = btoa(editor.getValue())
+        const compressed = LZString.compressToBase64(editor.getValue())
         const uri = encodeURIComponent(compressed)
         const newurl =
           window.location.protocol +
@@ -26,11 +26,12 @@ export const execute = async (CONSOLE) => {
           `?s=${uri}`
         consoleElement.value = newurl
         window.history.pushState({ path: newurl }, '', newurl)
+        droneIntel(keyIcon)
       }
       break
     case 'ENCODE':
       {
-        const compressed = btoa(editor.getValue())
+        const compressed = LZString.compressToBase64(editor.getValue())
         const uri = encodeURIComponent(compressed)
         const newurl =
           window.location.protocol +
@@ -40,11 +41,16 @@ export const execute = async (CONSOLE) => {
           `?s=${uri}`
         consoleElement.value = uri
         window.history.pushState({ path: newurl }, '', newurl)
+        droneIntel(keyIcon)
       }
       break
     case 'DECODE':
-      editor.setValue(atob(decodeURIComponent(ARGS[0])))
-      consoleElement.value = ''
+      {
+        const decompressed = LZString.decompressFromBase64(ARGS[0])
+        editor.setValue(decodeURIComponent(decompressed))
+        consoleElement.value = ''
+        droneIntel(keyIcon)
+      }
       break
     case 'CLEAR':
       editor.setValue('')
@@ -65,6 +71,8 @@ export const execute = async (CONSOLE) => {
   * Share Base64 encoded link
   * Log selected expressions
 */`)
+      consoleElement.value = ''
+
       droneIntel(keyIcon)
       break
     case 'LICENSE':
@@ -93,7 +101,6 @@ export const execute = async (CONSOLE) => {
   SOFTWARE.
   */`)
       droneIntel(keyIcon)
-
       break
     case '_LOG':
       {
@@ -115,7 +122,6 @@ export const execute = async (CONSOLE) => {
         editor.setValue(source)
         consoleEditor.focus()
       }
-
       break
     case 'ESC':
     case 'X':
@@ -129,7 +135,6 @@ export const execute = async (CONSOLE) => {
     case 'HELP':
       editor.setValue(`/* 
 -----------------------------
- Press on the drone - run code
  Press ctrl/command + s - run code
 -----------------------------
  Enter a command in the console
@@ -149,7 +154,7 @@ export const execute = async (CONSOLE) => {
       consoleElement.value = ''
       break
     default:
-      if (CMD.trim()) printErrors(CMD + ' does not exist!')
+      if (CMD.trim()) printErrors('command "' + CMD + '" does not exist!')
       else consoleElement.value = ''
       droneIntel(errorIcon)
       break

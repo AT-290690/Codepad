@@ -35,12 +35,7 @@
   --meta: #f7768e;
   --regexp: #f7768e;
   --font-family: 'Fantastic';
-  --drone1: #565f89;
-  --drone2: #96aad6;
-  --drone3: #c6dbf2;
-  --drone4: #282828;
   --hover: #2eff85;
-
   --color-primary: #708aeb;
   --color-secondary: #96aad6;
   --color-thirdly: #96aad6;
@@ -89,7 +84,7 @@ body {
   font-style: normal;
   letter-spacing: -0.05em;
   background-color: var(--background-primary);
-  padding-inline-start: 80px;
+  padding-inline-start: 40px;
 }
 .error_line {
   color: #ff275d;
@@ -151,12 +146,10 @@ body {
   background-color: transparent;
   z-index: 1003;
 }
-.droneIcon,
-#drone {
+.droneIcon {
   cursor: pointer;
-  /* bottom: 0px;
-  left: 5px; */
-  top: 5px;
+  left: 0px;
+  top: 8px;
   text-align: center;
   padding: 0px;
   background-color: transparent;
@@ -166,7 +159,7 @@ body {
 .droneIcon {
   /* bottom: 50px;
   left: 0px; */
-  left: 25px;
+  /* left: 25px; */
   visibility: hidden;
 }
 #exit-full {
