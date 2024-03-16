@@ -72,4 +72,3 @@ window.addEventListener('resize', () => {
 })
 const bounds = document.body.getBoundingClientRect()
 editor.setSize(bounds.width - 10, bounds.height - 60)
-consoleElement.setAttribute('placeholder', '...')
