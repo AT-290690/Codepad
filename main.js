@@ -34,8 +34,10 @@ export const editor = CodeMirror(editorContainer, {})
 
 const initial = new URLSearchParams(location.search).get('s') ?? ''
 if (initial) {
-  const decompressed = LZString.decompressFromBase64(initial)
-  editor.setValue(decodeURIComponent(decompressed))
+  const decompressed = LZString.decompressFromBase64(
+    decodeURIComponent(initial)
+  )
+  editor.setValue(decompressed)
 }
 
 document.addEventListener('keydown', (e) => {

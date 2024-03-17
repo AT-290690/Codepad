@@ -46,8 +46,10 @@ export const execute = async (CONSOLE) => {
       break
     case 'DECODE':
       {
-        const decompressed = LZString.decompressFromBase64(ARGS[0])
-        editor.setValue(decodeURIComponent(decompressed))
+        const decompressed = LZString.decompressFromBase64(
+          decodeURIComponent(ARGS[0])
+        )
+        editor.setValue(decompressed)
         consoleElement.value = ''
         droneIntel(keyIcon)
       }
