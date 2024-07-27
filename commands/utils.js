@@ -53,27 +53,46 @@ export const exe = async (source, params) => {
 globalThis.logger = (disable = 0) => {
   if (disable) return () => {}
   popupContainer.style.display = 'block'
-  const popup = consoleEditor
-  popup.setValue('')
+  consoleEditor.setValue('')
   const bouds = document.body.getBoundingClientRect()
   const width = bouds.width
   const height = bouds.height
-  popup.setSize(width - 2, height / 3)
+  consoleEditor.setSize(width - 2, height / 3)
   // let count = 0
   return (msg, comment = '', space) => {
-    const current = popup.getValue()
-    popup.setValue(
+    const current = consoleEditor.getValue()
+    consoleEditor.setValue(
       `${current ? current + '\n' : ''}// ${comment.replace(/\n/g, '')}
 ${msg !== undefined ? JSON.stringify(msg, replacer, space) : undefined}`
     )
-    popup.setCursor(
-      popup.posToOffset({ ch: 0, line: popup.lineCount() - 1 }),
+    consoleEditor.setCursor(
+      consoleEditor.posToOffset({ ch: 0, line: consoleEditor.lineCount() - 1 }),
       true
     )
     return msg
   }
 }
-
+globalThis.print = (msg) => {
+  if (popupContainer.style.display !== 'block') {
+    popupContainer.style.display = 'block'
+    consoleEditor.setValue('')
+    const bouds = document.body.getBoundingClientRect()
+    const width = bouds.width
+    const height = bouds.height
+    consoleEditor.setSize(width - 2, height / 3)
+  }
+  const current = consoleEditor.getValue()
+  consoleEditor.setValue(
+    `${current ? current + '\n' : ''}${
+      msg !== undefined ? JSON.stringify(msg, replacer) : undefined
+    }`
+  )
+  consoleEditor.setCursor(
+    consoleEditor.posToOffset({ ch: 0, line: consoleEditor.lineCount() - 1 }),
+    true
+  )
+  return msg
+}
 export const run = async () => {
   consoleElement.classList.add('info_line')
   consoleElement.classList.remove('error_line')
