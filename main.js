@@ -33,11 +33,13 @@ keyButton.addEventListener('click', () => execute({ value: 'SHARE' }))
 export const editor = CodeMirror(editorContainer, {})
 
 const initial = new URLSearchParams(location.search).get('s') ?? ''
+const autoRun = new URLSearchParams(location.search).get('r') ?? ''
 if (initial) {
   const decompressed = LZString.decompressFromBase64(
     decodeURIComponent(initial)
   )
   editor.setValue(decompressed)
+  if (autoRun) run()
 }
 
 document.addEventListener('keydown', (e) => {
