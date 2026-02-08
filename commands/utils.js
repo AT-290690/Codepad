@@ -1,8 +1,6 @@
 import {
   editor,
   consoleElement,
-  alertIcon,
-  errorIcon,
   popupContainer,
   consoleEditor,
 } from '../main.js'
@@ -31,22 +29,15 @@ export const printErrors = (errors) => {
   consoleElement.value = errors
 }
 
-export const droneIntel = (icon) => {
-  icon.style.visibility = 'visible'
-  setTimeout(() => (icon.style.visibility = 'hidden'), 500)
-}
-
 const AsyncFunction = async function () {}.constructor
 export const exe = async (source, params) => {
   try {
     const result = await new AsyncFunction(source)()
-    droneIntel(alertIcon)
     return result
   } catch (err) {
     consoleElement.classList.remove('info_line')
     consoleElement.classList.add('error_line')
     consoleElement.value = consoleElement.value.trim() || err + ' '
-    droneIntel(errorIcon)
   }
 }
 

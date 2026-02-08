@@ -1,12 +1,6 @@
-import {
-  consoleEditor,
-  consoleElement,
-  errorIcon,
-  keyIcon,
-  xIcon,
-} from '../main.js'
+import { consoleEditor, consoleElement } from '../main.js'
 import { editor } from '../main.js'
-import { run, printErrors, droneIntel, exe, replacer } from './utils.js'
+import { run, printErrors, exe, replacer } from './utils.js'
 
 export const execute = async (CONSOLE) => {
   consoleElement.classList.remove('error_line')
@@ -26,7 +20,6 @@ export const execute = async (CONSOLE) => {
           `?s=${uri}`
         consoleElement.value = newurl
         window.history.pushState({ path: newurl }, '', newurl)
-        droneIntel(keyIcon)
       }
       break
     case 'ENCODE':
@@ -41,7 +34,6 @@ export const execute = async (CONSOLE) => {
           `?s=${uri}`
         consoleElement.value = uri
         window.history.pushState({ path: newurl }, '', newurl)
-        droneIntel(keyIcon)
       }
       break
     case 'DECODE':
@@ -51,13 +43,11 @@ export const execute = async (CONSOLE) => {
         )
         editor.setValue(decompressed)
         consoleElement.value = ''
-        droneIntel(keyIcon)
       }
       break
     case 'CLEAR':
       editor.setValue('')
       consoleElement.value = ''
-      droneIntel(xIcon)
       break
     case 'RUN':
       run()
@@ -75,7 +65,6 @@ export const execute = async (CONSOLE) => {
 */`)
       consoleElement.value = ''
 
-      droneIntel(keyIcon)
       break
     case 'LICENSE':
       consoleElement.value = ''
@@ -102,7 +91,6 @@ export const execute = async (CONSOLE) => {
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
   */`)
-      droneIntel(keyIcon)
       break
     case '_LOG':
       {
@@ -152,13 +140,11 @@ export const execute = async (CONSOLE) => {
  LICENSE: read license info
  ----------------------------
 */`)
-      droneIntel(keyIcon)
       consoleElement.value = ''
       break
     default:
       if (CMD.trim()) printErrors('command "' + CMD + '" does not exist!')
       else consoleElement.value = ''
-      droneIntel(errorIcon)
       break
   }
 }

@@ -9,13 +9,8 @@ export const focusButton = document.getElementById('focus-button')
 export const keyButton = document.getElementById('key')
 export const appButton = document.getElementById('run')
 // export const droneButton = document.getElementById('drone')
-export const errorIcon = document.getElementById('error-drone-icon')
-export const formatterIcon = document.getElementById('formatter-drone-icon')
-export const keyIcon = document.getElementById('key-drone-icon')
-export const xIcon = document.getElementById('x-drone-icon')
 // export const formatterButton = document.getElementById('formatter')
 export const popupContainer = document.getElementById('popup-container')
-export const alertIcon = document.getElementById('thunder-drone-icon')
 export const compositionContainer = document.getElementById(
   'composition-container'
 )
